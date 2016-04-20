@@ -1,0 +1,94 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="wc-item.html">
+<dom-module id="wc-horizontal-panel">
+    <template>
+        <style is="custom-style">
+        .flex-center-justified {
+            @apply(--layout-horizontal);
+            @apply(--layout-center-justified);
+        }
+        
+        .code {
+            text-align: center;
+        }
+        </style>
+        <style>
+        #component-wrapper {
+            text-align: center;
+            margin: 20px auto;
+        }
+        
+        #title,
+        #content,
+        .items-wrapper,
+        .btn-wrapper {
+            display: inline-block;
+        }
+        
+        .btn-wrapper.left {
+            float: left;
+        }
+        
+        .btn-wrapper.rigth {
+            float: right;
+        }
+        
+        paper-material {
+            background: var(--fondo, white);
+        }
+        
+        section {
+            display: block;
+        }
+        </style>
+        <div id="component-wrapper" class="flex-center-justified">
+            <paper-material>
+                <div id="header">
+                    <h2 id="title">{{title}}</h2>
+                </div>
+                <div id="content">
+                    <div class="btn-wrapper left">
+                        <paper-button id="prevBtn">
+                            <iron-icon icon="chevron-left"></iron-icon>
+                        </paper-button>
+                    </div>
+                    <div class="btn-wrapper rigth">
+                        <paper-button id="nextBtn">
+                            <iron-icon icon="chevron-right"></iron-icon>
+                        </paper-button>
+                    </div>
+                    <hr>
+                    <div class="items-wrapper">
+                        <!-- <template is="dom-repeat" items="{{items}}">
+                    <wc-item></wc-item>
+                </template> -->
+                        <wc-item></wc-item>
+                        <wc-item></wc-item>
+                        <wc-item></wc-item>
+                        <wc-item></wc-item>
+                    </div>
+                </div>
+            </paper-material>
+        </div>
+    </template>
+    <script>
+    (function() {
+        Polymer({
+            is: 'wc-horizontal-panel',
+            properties: {
+                items: {
+                    type: Array,
+                    value: function() {
+                        return [];
+                    },
+                    notify: true,
+                },
+                title: {
+                    type: String,
+                    value: 'Default title'
+                }
+            }
+        });
+    })();
+    </script>
+</dom-module>

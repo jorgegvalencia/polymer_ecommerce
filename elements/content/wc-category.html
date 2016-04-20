@@ -1,0 +1,31 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="wc-horizontal-panel.html">
+<dom-module id="wc-category">
+    <template>
+        <section>
+            <wc-horizontal-panel></wc-horizontal-panel>
+            <wc-horizontal-panel></wc-horizontal-panel>
+            <wc-horizontal-panel></wc-horizontal-panel>
+        </section>
+    </template>
+    <script>
+    (function() {
+        Polymer({
+            is: 'wc-category',
+            properties: {
+                items: {
+                    type: Array,
+                    value: function() {
+                        return [];
+                    },
+                    notify: true,
+                },
+                title: {
+                    type: String,
+                    value: 'Default title'
+                }
+            }
+        });
+    })();
+    </script>
+</dom-module>

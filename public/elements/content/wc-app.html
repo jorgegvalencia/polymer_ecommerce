@@ -207,24 +207,16 @@
         @media all and (min-width: 1601px) and (max-width: 1920px) {}
         </style>
         <paper-drawer-panel>
+            <wc-data-source source="/api/categories" data="{{categories}}"></wc-data-source>
             <paper-scroll-header-panel drawer>
                 <paper-toolbar id="drawerToolbar">
                     <span class="menu-name">Menu</span>
                 </paper-toolbar>
                 <div id="drawerContainer">
                     <paper-menu>
-                        <a>
-                            <iron-icon icon="home"></iron-icon>
-                            <span>Categoría 1</span>
-                        </a>
-                        <a>
-                            <iron-icon icon="info"></iron-icon>
-                            <span>Categoría 2</span>
-                        </a>
-                        <a>
-                            <iron-icon icon="mail"></iron-icon>
-                            <span>Categoría 3</span>
-                        </a>
+                        <template is="dom-repeat" items="{{categories}}">
+                            <wc-menu-item index="{{index}}" title="{{item}}"></wc-menu-item>
+                        </template>
                     </paper-menu>
                 </div>
             </paper-scroll-header-panel>
@@ -235,24 +227,21 @@
                     <div>Title</div>
                     <span class="space"></span>
                     <paper-icon-button icon="shopping-cart" disabled></paper-icon-button>
-                    <paper-button raised class="custom toolbar" on-tap="onTap">
+                    <paper-button raised class="custom toolbar" on-tap="onSignInTap">
                         <iron-icon icon="check"></iron-icon>
                         Sign in
                     </paper-button>
                     <paper-progress class="middle fit" value="60"></paper-progress>
                 </paper-toolbar>
                 <div>
-                    <iron-pages selected="0">
-                        <wc-category category="libros"></wc-category>
-                        <wc-category category="peliculas"></wc-category>
-                        <wc-category category="electronica"></wc-category>
+                    <iron-pages selected="{{selected}}">
+                        <template is="dom-repeat" items="{{categories}}">
+                            <wc-category category="{{item}}"></wc-category>
+                        </template>
                     </iron-pages>
                 </div>
                 <paper-dialog id="dialog" modal>
-                    <h2>Header</h2>
-                    <paper-dialog-scrollable>
-                        Lorem ipsum...
-                    </paper-dialog-scrollable>
+                    <h2>Sign in</h2>
                     <div class="buttons">
                         <paper-button dialog-dismiss>Cancel</paper-button>
                         <paper-button dialog-confirm>Accept</paper-button>
@@ -265,16 +254,20 @@
     Polymer({
         is: 'wc-app',
         properties: {
-            currentCategory: {
-                type: String,
-                value: 'libros'
+            selected: {
+                type: Number,
+                value: 0
             }
         },
         ready: function() {
+            this.listen(this, 'selected-item', 'onSelectedCategory')
             // this.$.dialog.close();
         },
-        onTap: function(e) {
+        onSignInTap: function(e) {
             this.$.dialog.open();
+        },
+        onSelectedCategory: function (e, data) {
+            this.selected = data.selected;
         }
     });
     </script>

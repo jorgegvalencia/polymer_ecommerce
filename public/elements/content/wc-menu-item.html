@@ -1,0 +1,82 @@
+<dom-module id="wc-menu-item">
+    <template>
+        <style>
+        :root {
+            --primary-text-color: var(--paper-grey-900);
+            --primary-background-color: #ffffff;
+            --secondary-text-color: #737373;
+            --disabled-text-color: #9b9b9b;
+            --divider-color: #dbdbdb;
+            --primary-color: var(--paper-indigo-500);
+            --light-primary-color: var(--paper-indigo-100);
+            --dark-primary-color: var(--paper-indigo-700);
+            --accent-color: var(--paper-pink-a200);
+            --light-accent-color: var(--paper-pink-a100);
+            --dark-accent-color: var(--paper-pink-a400);
+            /* Components */
+            /* paper-drawer-panel */
+            --drawer-menu-color: #ffffff;
+            --drawer-border-color: 1px solid #ccc;
+            --drawer-toolbar-border-color: 1px solid rgba(0, 0, 0, 0.22);
+            /* paper-menu */
+            --paper-menu-background-color: #fff;
+            --menu-link-color: #111111;
+        }
+        
+        :host {
+            @apply(--paper-menu-selected-item);
+            @apply(--paper-menu-focused-item-after);
+        }
+        
+        iron-icon {
+            margin-right: 33px;
+            opacity: 0.54;
+        }
+        
+        a {
+            @apply(--layout-horizontal);
+            @apply(--layout-center);
+            text-decoration: none;
+            color: var(--menu-link-color);
+            font-family: 'Roboto', 'Noto', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 24px;
+            min-height: 48px;
+            padding: 0 16px;
+        }
+        </style>
+        <a on-tap="onSelectedItem">
+            <iron-icon icon="home"></iron-icon>
+            <span>{{title}}</span>
+        </a>
+    </template>
+    <script>
+    (function() {
+        Polymer({
+            is: 'wc-menu-item',
+            properties: {
+                index: {
+                    type: Number,
+                    value: 0,
+                    notify: true
+                },
+                title: {
+                    type: String,
+                    value: 'Default title'
+                }
+            },
+            ready: function() {
+                // console.log(this.category);
+            },
+            onSelectedItem: function() {
+                this.fire('selected-item', {
+                    selected: this.index
+                });
+            }
+        })
+    })();
+    </script>
+</dom-module>

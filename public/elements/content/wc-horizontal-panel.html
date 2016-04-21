@@ -60,7 +60,7 @@
                     <hr>
                     <div class="items-wrapper">
                         <wc-data-source source="/api/items/{{title}}" data="{{items}}"></wc-data-source>
-                        <template is="dom-repeat" items="{{items}}">
+                        <template is="dom-repeat" items="{{itemsShown}}">
                             <wc-item title="{{item.title}}" author="{{item.author}}"></wc-item>
                         </template>
                     </div>
@@ -80,11 +80,32 @@
                     },
                     notify: true,
                 },
+                offset: {
+                    type: Number,
+                    value: 2
+                },
+                limit: {
+                    type: Number,
+                    value: 4
+                },
+                itemsShown: {
+                    type: Array,
+                    computed: 'getItemsShown(items, limit, offset)'
+                },
                 title: {
                     type: String,
                     value: 'Default title'
                 }
+            },
+            getItemsShown: function (items, limit, offset) {
+                var result = [];
+                for(var index = 0; index < items.length; index++){
+                    // console.log(index, items.length);
+                    result.push(items[index]);
+                }
+                return result;
             }
+
         });
     })();
     </script>

@@ -3,7 +3,7 @@
 <dom-module id="wc-category">
     <template>
         <section>
-            <wc-data-source source="/api/subcategories/[[category]]" data="{{subcategories}}"></wc-data-source>
+            <wc-data-source source="/api/subcategories/{{category}}" data="{{subcategories}}"></wc-data-source>
             <template is="dom-repeat" items="{{subcategories}}" as="subcategory">
                 <!-- <wc-data-source source="/api/items/{{subcategory}}" data="{{subcategories}}"></wc-data-source> -->
                 <wc-horizontal-panel title="{{subcategory}}" data="{{subcategories}}"></wc-horizontal-panel>
@@ -22,6 +22,9 @@
                     type: String,
                     value: 'Default title'
                 }
+            },
+            ready: function () {
+                console.log(this.category);
             }
         });
     })();

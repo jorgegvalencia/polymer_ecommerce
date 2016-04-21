@@ -1,41 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <dom-module id="wc-app">
     <template>
-        <style is="custom-style" include="shared-styles"></style>
-        <style is="custom-style">
-        /*
-   Polymer includes a shim for CSS Custom Properties that we can use for application theming.
-   Below, you'll find the default palette for the Polymer Starter Kit layout. Feel free to play
-   with changing the colors used or generate your own palette of colours at MaterialPalette.com.
-
-   See https://www.polymer-project.org/1.0/docs/devguide/styling.html#xscope-styling-details
-   for further information on custom CSS properties.
-   */
-        /* Application theme */
-        
-        :root {
-            --primary-text-color: var(--paper-grey-900);
-            --primary-background-color: #ffffff;
-            --secondary-text-color: #737373;
-            --disabled-text-color: #9b9b9b;
-            --divider-color: #dbdbdb;
-            --primary-color: var(--paper-indigo-500);
-            --light-primary-color: var(--paper-indigo-100);
-            --dark-primary-color: var(--paper-indigo-700);
-            --accent-color: var(--paper-pink-a200);
-            --light-accent-color: var(--paper-pink-a100);
-            --dark-accent-color: var(--paper-pink-a400);
-            /* Components */
-            /* paper-drawer-panel */
-            --drawer-menu-color: #ffffff;
-            --drawer-border-color: 1px solid #ccc;
-            --drawer-toolbar-border-color: 1px solid rgba(0, 0, 0, 0.22);
-            /* paper-menu */
-            --paper-menu-background-color: #fff;
-            --menu-link-color: #111111;
-        }
-        /* General styles */
-        
+        <style>
         body {
             @apply(--layout-fullbleed);
             @apply(--layout-vertical);
@@ -142,6 +108,11 @@
             background: white;
         }
         
+        paper-button.custom.toolbar {
+            background-color: var(--paper-pink-a200);
+            /*color: white !important;*/
+        }
+        
         #toast .toast-hide-button {
             color: #eeff41;
             margin: 10px;
@@ -186,12 +157,6 @@
         }
         /* Material Design Adaptive Breakpoints */
         /*
-    Below you'll find CSS media queries based on the breakpoint guidance
-    published by the Material Design team. You can choose to use, customise
-    or remove these breakpoints based on your needs.
-
-    http://www.google.com/design/spec/layout/adaptive-ui.html#adaptive-ui-breakpoints
-   */
         /* mobile-small */
         
         @media all and (min-width: 0) and (max-width: 360px) and (orientation: portrait) {}
@@ -278,37 +243,39 @@
                 </paper-toolbar>
                 <div>
                     <iron-pages selected="0">
-                        <wc-category></wc-category>
+                        <wc-category category="libros"></wc-category>
+                        <wc-category category="peliculas"></wc-category>
+                        <wc-category category="electronica"></wc-category>
                     </iron-pages>
                 </div>
+                <paper-dialog id="dialog" modal>
+                    <h2>Header</h2>
+                    <paper-dialog-scrollable>
+                        Lorem ipsum...
+                    </paper-dialog-scrollable>
+                    <div class="buttons">
+                        <paper-button dialog-dismiss>Cancel</paper-button>
+                        <paper-button dialog-confirm>Accept</paper-button>
+                    </div>
+                </paper-dialog>
             </paper-scroll-header-panel>
-            <paper-dialog id="dialog" modal>
-                <h2>Header</h2>
-                <paper-dialog-scrollable>
-                    Lorem ipsum...
-                </paper-dialog-scrollable>
-                <div class="buttons">
-                    <paper-button dialog-dismiss>Cancel</paper-button>
-                    <paper-button dialog-confirm>Accept</paper-button>
-                </div>
-            </paper-dialog>
         </paper-drawer-panel>
     </template>
     <script>
     Polymer({
         is: 'wc-app',
-
         properties: {
-
+            currentCategory: {
+                type: String,
+                value: 'libros'
+            }
+        },
+        ready: function() {
+            // this.$.dialog.close();
+        },
+        onTap: function(e) {
+            this.$.dialog.open();
         }
-
-        // ready: function() {
-        //     // this.$.dialog.close();
-        // },
-
-        // onTap: function(e) {
-        //     this.$.dialog.open();
-        // }
     });
     </script>
 </dom-module>

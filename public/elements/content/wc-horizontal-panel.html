@@ -59,13 +59,10 @@
                     </div>
                     <hr>
                     <div class="items-wrapper">
-                        <!-- <template is="dom-repeat" items="{{items}}">
-                    <wc-item></wc-item>
-                </template> -->
-                        <wc-item></wc-item>
-                        <wc-item></wc-item>
-                        <wc-item></wc-item>
-                        <wc-item></wc-item>
+                        <wc-data-source source="/api/items/{{title}}" data="{{items}}"></wc-data-source>
+                        <template is="dom-repeat" items="{{items}}">
+                            <wc-item title="{{item.title}}" author="{{item.author}}"></wc-item>
+                        </template>
                     </div>
                 </div>
             </paper-material>

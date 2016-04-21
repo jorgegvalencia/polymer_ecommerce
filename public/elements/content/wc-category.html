@@ -3,9 +3,11 @@
 <dom-module id="wc-category">
     <template>
         <section>
-            <wc-horizontal-panel></wc-horizontal-panel>
-            <wc-horizontal-panel></wc-horizontal-panel>
-            <wc-horizontal-panel></wc-horizontal-panel>
+            <wc-data-source source="/api/subcategories/[[category]]" data="{{subcategories}}"></wc-data-source>
+            <template is="dom-repeat" items="{{subcategories}}" as="subcategory">
+                <!-- <wc-data-source source="/api/items/{{subcategory}}" data="{{subcategories}}"></wc-data-source> -->
+                <wc-horizontal-panel title="{{subcategory}}" data="{{subcategories}}"></wc-horizontal-panel>
+            </template>
         </section>
     </template>
     <script>
@@ -13,12 +15,8 @@
         Polymer({
             is: 'wc-category',
             properties: {
-                items: {
-                    type: Array,
-                    value: function() {
-                        return [];
-                    },
-                    notify: true,
+                category: {
+                    type: String
                 },
                 title: {
                     type: String,

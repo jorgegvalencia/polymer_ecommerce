@@ -13,7 +13,8 @@
         }
         </style>
         <div class="item-wrapper">
-            <span>{{name}}</span>
+            <span>{{title}}</span>
+            <span>{{autor}}</span>
         </div>
     </template>
     <script>
@@ -21,9 +22,13 @@
         Polymer({
             is: 'wc-item',
             properties: {
-                name: {
+                title: {
                     type: String,
-                    value: 'Default name'
+                    value: 'default title'
+                },
+                autor: {
+                    type: String,
+                    value: 'default author'
                 }
             }
         });

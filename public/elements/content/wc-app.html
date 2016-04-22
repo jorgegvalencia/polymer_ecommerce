@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="wc-cart.html">
 <dom-module id="wc-app">
     <template>
         <style>
@@ -224,9 +225,9 @@
                 <!-- Main Toolbar -->
                 <paper-toolbar id="mainToolbar">
                     <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
-                    <div>Title</div>
+                    <div>Polymer E-commerce</div>
                     <span class="space"></span>
-                    <paper-icon-button icon="shopping-cart" disabled></paper-icon-button>
+                    <paper-icon-button icon="shopping-cart" on-tap="toggleCart"></paper-icon-button>
                     <paper-button raised class="custom toolbar" on-tap="onSignInTap">
                         <iron-icon icon="check"></iron-icon>
                         Sign in
@@ -247,6 +248,7 @@
                         <paper-button dialog-confirm>Accept</paper-button>
                     </div>
                 </paper-dialog>
+                <wc-cart id="cart" active="{{active}}"></wc-cart>
             </paper-scroll-header-panel>
         </paper-drawer-panel>
     </template>
@@ -257,17 +259,31 @@
             selected: {
                 type: Number,
                 value: 0
+            },
+            active: {
+                type: Boolean,
+                value: false
             }
         },
         ready: function() {
-            this.listen(this, 'selected-item', 'onSelectedCategory')
+            this.listen(this, 'selected-item', 'onSelectedCategory');
+            this.listen(this, 'added-item', 'onAddedItem');
             // this.$.dialog.close();
         },
         onSignInTap: function(e) {
             this.$.dialog.open();
         },
-        onSelectedCategory: function (e, data) {
+        onSelectedCategory: function(e, data) {
             this.selected = data.selected;
+        },
+        toggleCart: function(e) {
+            this.active = this.active ? false : true;
+        },
+        onAddedItem: function(evt, data) {
+            console.log("Recibo evento");
+            console.log(evt);
+            console.log(data);
+            this.$.cart.addItem(data);
         }
     });
     </script>

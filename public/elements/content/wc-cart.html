@@ -1,0 +1,71 @@
+<dom-module id="wc-cart">
+    <template>
+        <style>
+        #cart {
+            padding: 20px;
+            min-width: 300px;
+        }
+        </style>
+        <paper-dialog id="cart" modal>
+            <h2>Cart</h2>
+            <h3>Items added:</h3>
+            <paper-dialog-scrollable>
+                <template is="dom-repeat" items="{{items}}">
+                    <paper-material>
+                        <p> Artículo: {{item.item.title}} </p>
+                        <p> Productor: {{item.item.author}} </p>
+                    </paper-material>
+                </template>
+            </paper-dialog-scrollable>
+            <paper-button raised on-tap="onCartClose">
+                <iron-icon icon="check"></iron-icon>
+                Aceptar
+            </paper-button>
+        </paper-dialog>
+    </template>
+    <script>
+    (function() {
+        var addedItems = window.localStorage.getItem('items');
+        Polymer({
+            properties: {
+                items: {
+                    type: Array,
+                    observer: 'logCart',
+                    notify: true,
+                    value: function() {
+                        return [];
+                    }
+                },
+                total: {
+                    type: Number
+                },
+                active: {
+                    type: Boolean,
+                    value: false,
+                    observer: 'onCartOpen',
+                    notify: true
+                }
+            },
+            ready: function() {
+                this.listen(this, 'added-item', 'onAddedItem');
+            },
+            addItem: function(item) {
+                console.log(item);
+                this.push('items', item);
+                console.log(this.items);
+            },
+            logCart: function() {
+                console.log("Carrito:", this.items);
+            },
+            onCartOpen: function() {
+                if (this.active)
+                    this.$.cart.open();
+            },
+            onCartClose: function() {
+                this.$.cart.close();
+                this.active = false;
+            }
+        })
+    })();
+    </script>
+</dom-module>

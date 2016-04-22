@@ -3,21 +3,29 @@
     <template>
         <style>
         :host {
-            display: inline-block;
-            box-shadow: 1px 1px 5px #888;
-            padding: 50px;
+            /*box-shadow: 1px 1px 5px #888;*/
             /*width: 100px;*/
-            height: 100px;
+            /*height: 100px;*/
+            /*padding: 50px;*/
+        }
+        
+        .item-wrapper {
             text-align: center;
             margin: 15px;
-        }
-        .item-wrapper {
-            max-width: 100px;
+            display: inline-block;
+            /*max-width: 100px;*/
         }
         </style>
         <div class="item-wrapper">
-            <span>{{title}}</span>
-            <span>{{autor}}</span>
+            <paper-card heading="{{item.title}}" image="{{item.cover}}">
+                <div class="card-content">
+                    <!-- <img src="{{item.cover}}"></img> -->
+                    <span>{{item.autor}}</span>
+                </div>
+                <div class="card-actions">
+                    <paper-button on-tap="onAddToCart">Add to cart</paper-button>
+                </div>
+            </paper-card>
         </div>
     </template>
     <script>
@@ -25,14 +33,18 @@
         Polymer({
             is: 'wc-item',
             properties: {
-                title: {
-                    type: String,
-                    value: 'default title'
-                },
-                autor: {
-                    type: String,
-                    value: 'default author'
+                item: {
+                    type: Object,
+                    value: function() {
+                        return {};
+                    }
                 }
+            },
+            onAddToCart: function() {
+                console.log("lanzo evento");
+                this.fire('added-item', {
+                    item: this.item
+                });
             }
         });
     })();
